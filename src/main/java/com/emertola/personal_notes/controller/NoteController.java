@@ -1,5 +1,6 @@
 package com.emertola.personal_notes.controller;
 
+import com.emertola.personal_notes.model.ErrorResponse;
 import com.emertola.personal_notes.model.Note;
 import com.emertola.personal_notes.service.NoteService;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,16 @@ public class NoteController {
     @GetMapping
     public ResponseEntity<List<Note>> getAllNotes() {
         return ResponseEntity.ok(noteService.getAllNotes());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getNoteById(@PathVariable Long id) {
+        return noteService.getNoteById(id)
+                .<ResponseEntity<Object>>map(note -> ResponseEntity.ok().body(note))
+                .orElseGet(() -> {
+                    ErrorResponse error = new ErrorResponse("Note with ID " + id + " was not found.", 404);
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+                });
     }
 
     @PostMapping
