@@ -9,4 +9,5 @@ public interface NoteService {
     List<Note> getAllNotes();
     Optional<Note> getNoteById(Long id);
     Note createNote(Note note);
+    Note updateNote(Long id, Note updatedNote);
 }

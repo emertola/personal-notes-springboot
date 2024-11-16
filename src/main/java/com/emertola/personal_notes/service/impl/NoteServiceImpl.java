@@ -30,4 +30,14 @@ public class NoteServiceImpl implements NoteService {
     public Optional<Note> getNoteById(Long id) {
         return noteRepository.findById(id);
     }
+
+    @Override
+    public Note updateNote(Long id, Note updatedNote) {
+        return noteRepository.findById(id)
+                .map(existingNote -> {
+                    existingNote.setNotes(updatedNote.getNotes());
+                    return noteRepository.save(existingNote);
+                })
+                .orElseThrow(() -> new RuntimeException("Note not found"));
+    }
 }
