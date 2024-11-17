@@ -40,4 +40,9 @@ public class NoteServiceImpl implements NoteService {
                 })
                 .orElseThrow(() -> new RuntimeException("Note not found"));
     }
+
+    @Override
+    public void deleteNoteById(Long id) {
+        noteRepository.deleteById(id);
+    }
 }

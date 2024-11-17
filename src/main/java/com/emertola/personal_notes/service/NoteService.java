@@ -10,4 +10,5 @@ public interface NoteService {
     Optional<Note> getNoteById(Long id);
     Note createNote(Note note);
     Note updateNote(Long id, Note updatedNote);
+    void deleteNoteById(Long id);
 }
